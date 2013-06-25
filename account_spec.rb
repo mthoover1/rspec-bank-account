@@ -41,6 +41,11 @@ describe Account do
     it "should have the correct starting balance" do
       account.balance.should eq 100
     end
+
+    it "should return the correct updated balance" do
+      account.stub(:transactions => [100, 100])
+      account.balance.should eq 200
+    end
   end
  
   describe "#account_number" do
@@ -54,11 +59,6 @@ describe Account do
       account.deposit!(100)
       account.deposit!(50)
       account.transactions.length.should eq 3
-    end
-
-    it "should return the correct updated balance" do
-      account.deposit!(100)
-      account.balance.should eq 200
     end
 
     it "should not pass when given a negative input" do
@@ -79,11 +79,6 @@ describe Account do
       account.withdraw!(10)
       account.withdraw!(20)
       account.transactions.length.should eq 3
-    end
-
-    it "should return the correct updated balance" do
-      account.withdraw!(50)
-      account.balance.should eq 50
     end
 
     it "should raise overdraft error" do
